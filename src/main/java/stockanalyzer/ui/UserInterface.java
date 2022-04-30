@@ -1,41 +1,67 @@
 package stockanalyzer.ui;
-
+//TODO Exceptions von API und ctrl sollen ins UI kommen
+//Link: https://github.com/Curt96/StockAnalyzer
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 import stockanalyzer.ctrl.Controller;
+import yahooApi.MyExceptionMaster;
 
 public class UserInterface 
 {
 
 	private Controller ctrl = new Controller();
 
-	public void getDataFromCtrl1(){
-		ctrl.process("NFC.DE");
+	public void getDataFromCtrl1() {
+		try {
+			ctrl.process("NFC.DE, SPY, FQT.VI");
+		}
+		catch (MyExceptionMaster error) {
+			error.printStackTrace();
+		}
 	}
-	public void getDataFromCtrl2() { ctrl.process("SPY");
+	public void getDataFromCtrl2() {
+		try {
+			ctrl.process("AMZN, GOOG, TSLA");
+		}
+		catch (MyExceptionMaster myExceptionMaster) {
+			myExceptionMaster.printStackTrace();
+		}
 	}
-	public void getDataFromCtrl3() { ctrl.process("FQT.VI");
+	public void getDataFromCtrl3(){
+	try {
+			ctrl.process("AAPL, FB, SNAP");
+		}
+		catch (MyExceptionMaster myExceptionMaster) {
+			myExceptionMaster.printStackTrace();
+		}
 	}
 	public void getDataFromCtrl4(){
 
 	}
 	
-	public void getDataForCustomInput() {
-		
+	public void getDataForCustomInput(){
+		try {
+			Scanner scanner = new Scanner(System.in);
+			ctrl.process(scanner.next());
+		}
+		catch (MyExceptionMaster myExceptionMaster) {
+			myExceptionMaster.printStackTrace();
+		}
 	}
 
 
 	public void start() {
 		Menu<Runnable> menu = new Menu<>("User Interfacx");
 		menu.setTitel("Wählen Sie aus:");
-		menu.insert("a", "Choice 1", this::getDataFromCtrl1);
-		menu.insert("b", "Choice 2", this::getDataFromCtrl2);
-		menu.insert("c", "Choice 3", this::getDataFromCtrl3);
-		menu.insert("d", "Choice User Imput:",this::getDataForCustomInput);
-		menu.insert("z", "Choice User Imput:",this::getDataFromCtrl4);
+		menu.insert("a", "Choice 1: NFC.DE, SPY, FQT.VI", this::getDataFromCtrl1);
+		menu.insert("b", "Choice 2: AMZN, GOOG, TSLA", this::getDataFromCtrl2);
+		menu.insert("c", "Choice 3: AAPL, FB, SNAP", this::getDataFromCtrl3);
+		//menu.insert("d", "Choice User Imput:",this::getDataForCustomInput);
+		//menu.insert("z", "Choice User Imput:",this::getDataFromCtrl4);
 		menu.insert("q", "Quit", null);
 		Runnable choice;
 		while ((choice = menu.exec()) != null) {
