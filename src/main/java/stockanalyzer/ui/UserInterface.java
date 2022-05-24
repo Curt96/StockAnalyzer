@@ -42,6 +42,9 @@ public class UserInterface
 	public void getDataFromCtrl4(){
 
 	}
+	public void downloadTickers() {
+
+	}
 	
 	public void getDataForCustomInput(){
 		try {

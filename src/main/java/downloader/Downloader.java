@@ -1,5 +1,6 @@
-package stockanalyzer.downloader;
+package downloader;
 
+import yahooApi.MyExceptionMaster;
 import yahooApi.YahooFinance;
 
 import java.io.*;
@@ -27,7 +28,7 @@ public abstract class Downloader {
             writer = new BufferedWriter(new FileWriter(fileName));
             writer.write(json);
             writer.close();
-        } catch (IOException e) {
+        } catch (IOException | MyExceptionMaster e) {
             e.printStackTrace();
         } finally {
             try {
